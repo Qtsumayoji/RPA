@@ -12,19 +12,23 @@ function step_func(x::Float64)
     end
 end
 
+# tight-binding 近似での正方格子の分散関係
 function calc_ϵk_sq(kx::Float64, ky::Float64, t::Float64)
     return -2.0*t*(cos(kx) + cos(ky))
 end
 
+# ハニカム格子での分散関係
 sq3 = sqrt(3.0)
 function calc_ϵk_hy(kx::Float64, ky::Float64, t::Float64)
     return -sqrt(1.0 + 4.0*cos(0.5*ky)*cos(0.5*sq3*kx) + 4.0*cos(0.5*ky)^2.0)
 end
 
+# 自由粒子の分散関係
 function calc_ϵk(k::Float64)
     return 0.5*k^2
 end
 
+# 正方格子での分極関数の最低次を計算
 function calc_χ0_sq(qx, qy, ω, t, ϵF, Nk)
     χ0 = 0.0
     K = range(-pi, stop=pi, length=Nk)
@@ -142,6 +146,7 @@ function plot(ϵF, ω)
     plt.show()
 end
 
+# Electron Gas
 function plot_EG(ϵF, ω)
     Nq = 200
     Nk = 500
